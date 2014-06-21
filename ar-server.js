@@ -3,8 +3,15 @@
 
 // Include http module and mysql
 var http = require('http'),
+express = require('express'),
+logfmt = require('logfmt'),
 mysql = require("mysql");  // https://github.com/felixge/node-mysql
- 
+
+var app = express();
+app.use(logfmt.requestLogger());
+
+var port = Number(process.env.PORT || 5000);
+
 // Create the connection.
 // Data is default to new mysql installation and should be changed according to your configuration.
 var connection = mysql.createConnection({
@@ -48,7 +55,7 @@ http.createServer(function (request, response) {
    }
 
 // Listen on the 8080 port.
-}).listen(1337);
+}).listen( port );
 
 
 // UTILS
